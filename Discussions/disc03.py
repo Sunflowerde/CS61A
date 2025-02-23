@@ -29,3 +29,22 @@ def skip_factorial(n):
         return n
     else:
         return n * skip_factorial(n - 2)
+
+def is_prime(n):
+    """Returns True if n is a prime number and False otherwise.
+    >>> is_prime(2)
+    True
+    >>> is_prime(16)
+    False
+    >>> is_prime(521)
+    True
+    """
+    def check_all(i):
+        """Check whether no number from i up to n evenly divides n."""
+        if i == n:
+            return True
+        elif n % i == 0:
+            return False
+        else:
+            return check_all(i + 1)
+    return check_all(2)
