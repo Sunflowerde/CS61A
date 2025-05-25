@@ -24,8 +24,11 @@ def num_eights(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if n == 8:
+        return 1
+    if n <= 10 and n != 8:
+        return 0
+    return num_eights(n % 10) + num_eights(n // 10)
 
 def digit_distance(n):
     """Determines the digit distance of n.
@@ -46,8 +49,11 @@ def digit_distance(n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if n < 10:
+        return 0
+    last = n % 10
+    second_last = n // 10 % 10
+    return abs(last - second_last) + digit_distance(n // 10)
 
 def interleaved_sum(n, odd_func, even_func):
     """Compute the sum odd_func(1) + even_func(2) + odd_func(3) + ..., up
