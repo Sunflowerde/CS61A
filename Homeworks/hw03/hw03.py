@@ -76,8 +76,14 @@ def interleaved_sum(n, odd_func, even_func):
     >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['BitAnd', 'BitOr', 'BitXor']) # ban bitwise operators, don't worry about these if you don't know what they are
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    def sum_from(k):
+        if k > n:
+            return 0
+        elif k == n:
+            return odd_func(k)
+        else:
+            return odd_func(k) + even_func(k + 1) + sum_from(k + 2)
+    return sum_from(1)
 
 def next_smaller_dollar(bill):
     """Returns the next smaller bill in order."""
@@ -112,8 +118,15 @@ def count_dollars(total):
     >>> check(HW_SOURCE_FILE, 'count_dollars', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    def count(total, bill):
+        if total == 0:
+            return 1 
+        if total < 0:
+            return 0
+        if bill == None:
+            return 0
+        return count(total - bill, bill) + count(total, next_smaller_dollar(bill))
+    return count(total, 100)
 
 def next_larger_dollar(bill):
     """Returns the next larger bill in order."""
@@ -148,8 +161,15 @@ def count_dollars_upward(total):
     >>> check(HW_SOURCE_FILE, 'count_dollars_upward', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    def count(cnt, bill):
+        if cnt == total:
+            return 1
+        if cnt > total:
+            return 0
+        if bill == None:
+            return 0
+        return count(cnt + bill, bill) + count(cnt, next_larger_dollar(bill))
+    return count(0, 1)
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
@@ -199,5 +219,5 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return 
 
