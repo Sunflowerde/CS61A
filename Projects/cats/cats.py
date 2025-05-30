@@ -37,7 +37,13 @@ def pick(paragraphs, select, k):
     ''
     """
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    count_true_paragraph = -1
+    for paragraph in paragraphs:
+        if select(paragraph):
+            count_true_paragraph += 1
+        if count_true_paragraph == k:
+            return paragraph
+    return ""
     # END PROBLEM 1
 
 
@@ -57,7 +63,13 @@ def about(keywords):
     assert all([lower(x) == x for x in keywords]), "keywords should be lowercase."
 
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    def contain_keyword(sentence):
+        sentence = remove_punctuation(sentence).lower().split()
+        for word in sentence:
+            if word in keywords:
+                return True
+        return False
+    return contain_keyword
     # END PROBLEM 2
 
 
