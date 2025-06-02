@@ -191,7 +191,23 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    if typed_word in word_list:
+        return typed_word
+    over_limit = True
+    for word in word_list:
+        if diff_function(typed_word, word, limit) <= limit: # 这里是超过而不是大于等于
+            over_limit = False
+            break
+    if over_limit:
+        return typed_word
+    min_index = 0
+    difference = float("inf")
+    for id in range(len(word_list)):
+        diff = diff_function(typed_word, word_list[id], limit)
+        if diff < difference:
+            difference = diff
+            min_index = id
+    return word_list[min_index]
     # END PROBLEM 5
 
 
