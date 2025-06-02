@@ -96,10 +96,22 @@ def accuracy(typed, source):
     >>> accuracy('', '')
     100.0
     """
-    typed_words = split(typed)
+    typed_words = split(typed) # split 将句子分成带标点的一个个单词
     source_words = split(source)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    accurate_count = 0
+    typed_count = len(typed_words)
+    source_count = len(source_words)
+    if typed_count == 0:
+        if source_count == 0:
+            return 100.0
+        else:
+            return 0.0
+    total_count = min(typed_count, source_count)
+    for id in range(total_count):
+        if typed_words[id] == source_words[id]:
+            accurate_count += 1
+    return accurate_count / typed_count * 100
     # END PROBLEM 3
 
 
@@ -117,7 +129,8 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, "Elapsed time must be positive"
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    total_count = len(typed)
+    return total_count / (5 * elapsed) * 60
     # END PROBLEM 4
 
 
