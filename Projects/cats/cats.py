@@ -280,10 +280,9 @@ minimum_mewtations = count(minimum_mewtations)
 def final_diff(typed, source, limit):
     """A diff function that takes in a string TYPED, a string SOURCE, and a number LIMIT.
     If you implement this function, it will be used."""
-    assert False, "Remove this line to use your final_diff function."
+    return minimum_mewtations(typed, source, limit)
 
-
-FINAL_DIFF_LIMIT = 6  # REPLACE THIS WITH YOUR LIMIT
+FINAL_DIFF_LIMIT = 5  # REPLACE THIS WITH YOUR LIMIT
 
 
 ###########
@@ -315,7 +314,17 @@ def report_progress(typed, source, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    total_word = len(source)
+    right_word = 0
+    for id in range(len(typed)):
+        if typed[id] == source[id]:
+            right_word += 1
+        else:
+            break
+    progress = right_word / total_word
+    directionary = {"id": user_id, "progress": progress}
+    upload(directionary)
+    return progress
     # END PROBLEM 8
 
 
@@ -339,7 +348,15 @@ def time_per_word(words, timestamps_per_player):
     """
     tpp = timestamps_per_player  # A shorter name (for convenience)
     # BEGIN PROBLEM 9
-    times = []  # You may remove this line
+    times = []
+    total_player = len(tpp)
+    for i in range(total_player):
+        each_time = []
+        player_stamp = tpp[i]
+        total_stamp = len(player_stamp)
+        for j in range(1, total_stamp):
+            each_time.append(player_stamp[j] - player_stamp[j - 1])
+        times.append(each_time)
     # END PROBLEM 9
     return {'words': words, 'times': times}
 
