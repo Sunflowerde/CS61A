@@ -12,8 +12,17 @@ def shuffle(s):
     ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     """
     assert len(s) % 2 == 0, 'len(seq) must be even'
-    "*** YOUR CODE HERE ***"
-
+    answer = []
+    total_element = len(s)
+    first = 0
+    second = total_element // 2
+    operation_count = total_element // 2
+    for _ in range(operation_count):
+        answer.append(s[first])
+        first += 1
+        answer.append(s[second])
+        second += 1
+    return answer
 
 def deep_map(f, s):
     """Replace all non-list elements x with f(x) in the nested list s.
@@ -103,7 +112,9 @@ def balanced(m):
     >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
     True
     """
-    return total_mass(left(m)) == total_mass(right(m))
+    if is_planet(m):
+        return True
+    
 
 def berry_finder(t):
     """Returns True if t contains a node with the value 'berry' and 
