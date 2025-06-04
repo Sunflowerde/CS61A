@@ -360,7 +360,6 @@ def time_per_word(words, timestamps_per_player):
     # END PROBLEM 9
     return {'words': words, 'times': times}
 
-
 def fastest_words(words_and_times):
     """Return a list of lists indicating which words each player typed fastest.
     In case of a tie, the player with the lower index is considered to be the one who typed it the fastest.
@@ -384,9 +383,18 @@ def fastest_words(words_and_times):
     player_indices = range(len(times))  # contains an *index* for each player
     word_indices = range(len(words))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    results = [[] for _ in player_indices]
+    for col in word_indices:
+        word = words[col]
+        min_time = float("inf")
+        fast_player = 0
+        for row in player_indices:
+            if times[row][col] < min_time:
+                min_time = times[row][col]
+                fast_player = row
+        results[fast_player].append(word)
+    return results
     # END PROBLEM 10
-
 
 def check_words_and_times(words_and_times):
     """Check that words_and_times is a {'words': words, 'times': times} dictionary
