@@ -160,7 +160,7 @@ def memo_diff(diff_function):
 
     def memoized(typed, source, limit):
         # BEGIN PROBLEM EC
-        "*** YOUR CODE HERE ***"
+        pass
         # END PROBLEM EC
 
     return memoized
