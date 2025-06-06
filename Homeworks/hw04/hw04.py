@@ -46,8 +46,11 @@ def deep_map(f, s):
     >>> s3 is s2[1]
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    for id in range(len(s)):
+        if type(s[id]) != list:
+            s[id] = f(s[id])
+        else:
+            deep_map(f, s[id])
 
 HW_SOURCE_FILE=__file__
 
