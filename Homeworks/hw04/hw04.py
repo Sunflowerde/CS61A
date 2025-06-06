@@ -117,7 +117,16 @@ def balanced(m):
     """
     if is_planet(m):
         return True
-    
+    left_arm = left(m)
+    right_arm = right(m)
+    length_left = length(left_arm)
+    length_right = length(right_arm)
+    left_end = end(left_arm)
+    right_end = end(right_arm)
+    if total_mass(left_end) * length_left != total_mass(right_end) * length_right:
+        return False
+    else:
+        return balanced(left_end) and balanced(right_end)
 
 def berry_finder(t):
     """Returns True if t contains a node with the value 'berry' and 
