@@ -150,14 +150,19 @@ class Server:
         """Append the email to the inbox of the client it is addressed to.
             email is an instance of the Email class.
         """
-        ____.inbox.append(email)
+        # 需要将信送到相应的人的位置
+        # 首先收件人的名字在 email 中，即 email.recipient_name
+        # 然后更改 clients 中收件人的信息
+        # clients 中每个 key 都是 Client 对象
+        # 将信的内容加入到相应的 inbox
+        self.clients[email.recipient_name].inbox.append(email)
 
     def register_client(self, client):
         """Add a client to the clients mapping (which is a 
         dictionary from client names to client instances).
             client is an instance of the Client class.
         """
-        ____[____] = ____
+        self.clients[client.name] = client
 
 class Client:
     """A client has a server, a name (str), and an inbox (list).
@@ -180,11 +185,11 @@ class Client:
         self.inbox = []
         self.server = server
         self.name = name
-        server.register_client(____)
+        server.register_client(self)
 
     def compose(self, message, recipient_name):
         """Send an email with the given message to the recipient."""
-        email = Email(message, ____, ____)
+        email = Email(message, self, recipient_name)
         self.server.send(email)
 
 
@@ -219,14 +224,16 @@ class Mint:
     """
     present_year = 2025
 
+    # 当不存在 self.year 这个属性时，会自动创建一个新的
+    # 当调用 update 时，Mint 的时间才会更新
     def __init__(self):
         self.update()
 
     def create(self, coin):
-        "*** YOUR CODE HERE ***"
+        return coin(self.year)
 
     def update(self):
-        "*** YOUR CODE HERE ***"
+        self.year = self.present_year
 
 class Coin:
     cents = None # will be provided by subclasses, but not by Coin itself
@@ -235,7 +242,7 @@ class Coin:
         self.year = year
 
     def worth(self):
-        "*** YOUR CODE HERE ***"
+        return self.cents + max(0, Mint.present_year - self.year - 50)
 
 class Nickel(Coin):
     cents = 5
