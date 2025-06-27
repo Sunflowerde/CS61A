@@ -279,10 +279,19 @@ class FireAnt(Ant):
 
 # BEGIN Problem 6
 # The WallAnt class
+class WallAnt(Ant):
+    name = "Wall"
+    food_cost = 4
+    implemented = True
+    
+    def __init__(self, health=4):
+        super().__init__(health)
 # END Problem 6
 
 # BEGIN Problem 7
 # The HungryAnt Class
+class HungryAnt(Ant):
+    
 # END Problem 7
 
 
@@ -731,6 +740,7 @@ class AntHomeBase(Place):
 def ants_win():
     """Signal that Ants win."""
     raise AntsWinException()
+
 
 
 def ants_lose():
