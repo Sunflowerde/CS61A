@@ -251,7 +251,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False   # Change to True to view in the GUI
+    implemented = True # Change to True to view in the GUI
     # END Problem 5
 
     def __init__(self, health=3):
@@ -266,7 +266,15 @@ class FireAnt(Ant):
         the additional damage if the fire ant dies.
         """
         # BEGIN Problem 5
-        "*** YOUR CODE HERE ***"
+        place_copy = self.place # 拷贝一个 place 防止变为 none
+        dead = (self.health <= amount) # 提前获得条件，防止变为 none
+        super().reduce_health(amount)
+        for bee in place_copy.bees[:]:
+            bee.reduce_health(amount)
+        if dead:
+            for bee in place_copy.bees[:]: # 仅对活着的 bee 做处理
+                bee.reduce_health(self.damage)
+        # 这里不用重复 remove ant，因为 reduce_health 方法会自动实现这一点
         # END Problem 5
 
 # BEGIN Problem 6
