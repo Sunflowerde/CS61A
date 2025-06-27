@@ -170,6 +170,9 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     food_cost = 3
+    # 用于设置攻击范围的上下限
+    upper_bound = float("inf")
+    lower_bound = 0
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
 
     def nearest_bee(self):
@@ -180,13 +183,16 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         # ant 的 entrance 是 bee 的方向
+        distance = 0
         cur_place = self.place
         while cur_place:
             if cur_place.is_hive:
                 return None
             if cur_place.bees:
-                return random_bee(cur_place.bees)
+                if self.lower_bound <= distance <= self.upper_bound:
+                    return random_bee(cur_place.bees)
             cur_place = cur_place.entrance
+            distance += 1
         # END Problem 3 and 4
 
     def throw_at(self, target):
@@ -218,7 +224,9 @@ class ShortThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True # Change to True to view in the GUI
+    lower_bound = 0
+    upper_bound = 3
     # END Problem 4
 
 
@@ -229,7 +237,9 @@ class LongThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
+    lower_bound = 5
+    upper_bound = float("inf")
     # END Problem 4
 
 
