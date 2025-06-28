@@ -291,7 +291,28 @@ class WallAnt(Ant):
 # BEGIN Problem 7
 # The HungryAnt Class
 class HungryAnt(Ant):
+    name = "Hungry"
+    food_cost = 4
+    implemented = True
+    chew_cooldown = 3 # 完成咀嚼所需要的时间
+   
+    def __init__(self, health=1):
+       super().__init__(health)
+       self.cooldown = 0
+       
+    def eat_bee(self, bee):
+        bee.reduce_health(bee.health)
     
+    def action(self, gamestate):
+        if self.cooldown == 0:
+            if self.place.bees:
+                target_bee = random_bee(self.place.bees)
+                self.eat_bee(target_bee)
+                self.cooldown = self.chew_cooldown
+        else:
+            self.cooldown -= 1
+            return
+            
 # END Problem 7
 
 
@@ -729,7 +750,7 @@ class AntHomeBase(Place):
     def add_insect(self, insect):
         """Add an Insect to this Place.
 
-        Can't actually add Ants to a AntHomeBase. However, if a Bee attempts to
+        Can't actually add Ants to a AntHomeBase. However, if a Bee attempts to  
         enter the AntHomeBase, a AntsLoseException is raised, signaling the end
         of a game.
         """
