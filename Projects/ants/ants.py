@@ -376,12 +376,32 @@ class ProtectorAnt(ContainerAnt):
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 8c
     implemented = True # Change to True to view in the GUI
+    
     def __init__(self, health=2):
         super().__init__(health)
     # END Problem 8c
 
 # BEGIN Problem 9
 # The TankAnt class
+class TankAnt(ContainerAnt):
+    name = "Tank"
+    implemented = True
+    food_cost = 6
+    damage = 1
+    
+    def __init__(self, health=2):
+        super().__init__(health)
+        
+    def action(self, gamestate):
+        total_damage = self.damage
+        if self.ant_contained:
+            if self.ant_contained.damage == 0:
+                self.ant_contained.action(gamestate)
+            else:
+                total_damage += self.ant_contained.damage
+        place_copy = self.place
+        for bee in place_copy.bees[:]:
+            bee.reduce_health(total_damage)
 # END Problem 9
 
 
