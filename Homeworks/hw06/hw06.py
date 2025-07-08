@@ -156,9 +156,14 @@ def deep_map_mut(func, s):
     >>> print(link1)
     <9 <16> 25 36>
     """
-    "*** YOUR CODE HERE ***"
-
-
+    if s is Link.empty:
+        return
+    if isinstance(s.first, int):
+        s.first = func(s.first)
+    else:
+        deep_map_mut(func, s.first)
+    deep_map_mut(func, s.rest)
+    
 def two_list(vals, counts):
     """
     Returns a linked list according to the two lists that were passed in. Assume
