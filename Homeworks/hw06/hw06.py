@@ -49,15 +49,20 @@ class VendingMachine:
     """
     def __init__(self, product, price):
         """Set the product and its price, as well as other instance attributes."""
-        "*** YOUR CODE HERE ***"
+        self.product = product
+        self.price = price
+        self.product_amount = 0
+        self.funds = 0
 
     def restock(self, n):
         """Add n to the stock and return a message about the updated stock level.
 
         E.g., Current candy stock: 3
         """
-        "*** YOUR CODE HERE ***"
-
+        self.product_amount += n
+        answer = f"Current {self.product} stock: {self.product_amount}"
+        return answer
+        
     def add_funds(self, n):
         """If the machine is out of stock, return a message informing the user to restock
         (and return their n dollars).
@@ -68,8 +73,14 @@ class VendingMachine:
 
         E.g., Current balance: $4
         """
-        "*** YOUR CODE HERE ***"
-
+        answer = ""
+        if self.product_amount == 0:
+            answer = f"Nothing left to vend. Please restock. Here is your ${n}."
+        else:
+            self.funds += n
+            answer = f"Current balance: ${self.funds}"
+        return answer
+        
     def vend(self):
         """Dispense the product if there is sufficient stock and funds and
         return a message. Update the stock and balance accordingly.
@@ -81,7 +92,24 @@ class VendingMachine:
         E.g., Nothing left to vend. Please restock.
               Please add $3 more funds.
         """
-        "*** YOUR CODE HERE ***"
+        answer = ""
+        if self.product_amount == 0:
+            if self.funds != 0:
+                answer = f"Nothing left to vend. Please restock. Here is your ${self.funds}"
+            else:
+                answer = "Nothing left to vend. Please restock."
+        else:
+            if self.funds == self.price:
+                answer = f"Here is your {self.product}."
+                self.funds = 0
+                self.product_amount -= 1
+            elif self.funds > self.price:
+                answer = f"Here is your {self.product} and ${self.funds - self.price} change."
+                self.funds = 0
+                self.product_amount -= 1
+            else:
+                answer = f"Please add ${self.price - self.funds} more funds."
+        return answer
 
 
 def store_digits(n):
