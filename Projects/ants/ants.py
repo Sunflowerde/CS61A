@@ -481,12 +481,24 @@ class SlowThrower(ThrowerAnt):
     name = 'Slow'
     food_cost = 6
     # BEGIN Problem EC 1
-    implemented = False   # Change to True to view in the GUI
+    implemented = True # Change to True to view in the GUI
     # END Problem EC 1
 
     def throw_at(self, target):
         # BEGIN Problem EC 1
-        "*** YOUR CODE HERE ***"
+        # target 表示被选中的 bee 实例
+        if target:
+            original_action = target.action
+            def slowed_action(gamestate):
+                if target.slow_turns_left > 0:
+                    if gamestate.time % 2 == 0:
+                       original_action(gamestate)
+                    target.slow_turns_left -= 1
+                else:
+                    target.action = original_action
+                    target.action(gamestate)
+            target.slow_turns_left = 5
+            target.action = slowed_action
         # END Problem EC 1
 
 
