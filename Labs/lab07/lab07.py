@@ -72,9 +72,17 @@ class FreeChecking(Account):
     """
     withdraw_fee = 1
     free_withdrawals = 2
-
-    "*** YOUR CODE HERE ***"
-
+    
+    def __init__(self, account_holder):
+        super().__init__(account_holder)
+        self.withdrawal_count = 0
+        
+    def withdraw(self, amount):
+        if self.withdrawal_count < self.free_withdrawals:
+            self.withdrawal_count += 1
+            return super().withdraw(amount)
+        else:
+            return super().withdraw(amount + self.withdraw_fee)
 
 def without(s, i):
     """Return a new linked list like s but without the element at index i.
